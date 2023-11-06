@@ -4,7 +4,7 @@ class DbConnector
 {
     private static PDO $db;
     const HOST = 'db';
-    const DB = 'iofarm';
+    const DB = 'furniture';
     const USER = 'root';
     const PASSWORD = 'password';
 
@@ -21,23 +21,3 @@ class DbConnector
         return self::$db;
     }
 }
-
-$pdo = DbConnector::connectToDb();
-
-$query = $pdo->prepare('SELECT * FROM `pigs`;');
-
-// 3. Execute the query
-
-$query->execute();
-
-$pigs = $query->fetchAll();
-
-/*echo '<pre>';
-print_r($pigs);
-echo '</pre>';*/
-
-echo '<ul>';
-foreach ($pigs as $pig) {
-    echo '<li>' . $pig['name'] . '-' . $pig['color'] . '</li>';
-}
-echo '</ul>';
