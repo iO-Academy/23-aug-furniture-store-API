@@ -1,5 +1,5 @@
 <?php
-
+namespace Furniture\Classes;
 class DbConnector
 {
     private static PDO $db;

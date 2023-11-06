@@ -1,5 +1,5 @@
 <?php
-namespace Example;
+namespace Furniture;
 
 class Example {
 
