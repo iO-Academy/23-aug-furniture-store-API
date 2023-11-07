@@ -15,7 +15,7 @@ try {
         throw new InvalidProductException('INVALID PRODUCT ID');
     }
     $db = DbConnector::getDbConnection();
-    $product = ProductHydrator::fetchProductById($db, $productId);
+    $product= ProductHydrator::fetchProductById($db, $productId);
     if (empty($product)) {
         throw new Exception('No information returned');
     }
