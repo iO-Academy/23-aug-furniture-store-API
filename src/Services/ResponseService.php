@@ -9,6 +9,5 @@ class ResponseService
     public static function createResponse(string $message, array $data): array
     {
         return ['message' => $message, 'data' => $data];
-
     }
 }

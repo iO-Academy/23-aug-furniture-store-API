@@ -1,8 +1,8 @@
 <?php
 
-namespace Furniture\Classes;
+namespace Furniture\Factories;
 
-use \PDO;
+use PDO;
 
 class DbConnector
 {
@@ -17,7 +17,7 @@ class DbConnector
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     ];
 
-    public static function connectToDb(): PDO
+    public static function getDbConnection(): PDO
     {
         if (empty(self::$db)) {
             self::$db = new PDO('mysql:host=' . self::HOST . ';dbname=' . self::DB . ';', self::USER, self::PASSWORD, self::OPTIONS);
