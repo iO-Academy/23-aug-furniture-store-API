@@ -1,5 +1,9 @@
 <?php
 
+namespace Example\Classes;
+
+use \PDO;
+
 class DbConnector
 {
     private static PDO $db;
