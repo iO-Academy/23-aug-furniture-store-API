@@ -1,6 +1,6 @@
 <?php
 
-namespace Furniture\Classes;
+namespace Furniture\Entities;
 class CategoryEntity implements \JsonSerializable
 {
     private int $id;

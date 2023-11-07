@@ -4,19 +4,20 @@ header('Access-Control-Allow-Origin: *');
 
 require('vendor/autoload.php');
 
-use Furniture\Classes\DbConnector;
-use Furniture\Classes\CategoryHydrator;
-use Furniture\Classes\CategoryEntity;
+use Furniture\Factories\DbConnector;
+use Furniture\Hydrators\CategoryHydrator;
 use Furniture\Services\ResponseService;
 
-$successMessage = "Successfully retrieved categories";
+const SUCCESS_MESSAGE = "Successfully retrieved categories";
 
 try {
-    $db = DbConnector::connectToDb();
+    $db = DbConnector::getDbConnection();
     $categories = CategoryHydrator::fetchAllCategories($db);
-    echo json_encode(ResponseService::createResponse($successMessage, $categories));
-} catch (PDOException $exception) {
+    if (empty($categories)) {
+        throw new Exception('No categories found in database');
+    }
+    echo json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $categories));
+} catch (Exception $exception) {
     http_response_code(500);
     echo json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, []));
-    exit();
 }
