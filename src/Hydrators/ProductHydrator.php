@@ -17,5 +17,9 @@ class ProductHydrator
 
     public static function fetchProductById(PDO $db, int $productId): ProductEntity
     {
+        $query = $db->prepare('SELECT `category_ID` as `categoryId`, `width`, `height`, `depth`, `price`, `stock`, `related`, `color` FROM `products` WHERE `id` = ?');
+        $query->execute([$productId]);
+        $query->setFetchMode(PDO::FETCH_CLASS, ProductEntity::class);
+        return $query->fetch();
     }
 }
