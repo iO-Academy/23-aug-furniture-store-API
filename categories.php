@@ -1,6 +1,4 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: *');
 
 require('vendor/autoload.php');
 
@@ -16,7 +14,8 @@ try {
     if (empty($categories)) {
         throw new Exception('No categories found in database');
     }
-    echo json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $categories));
+    $response = json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $categories));
 } catch (Exception $exception) {
-    echo json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, [], 500));
+    $response = json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, [], 500));
 }
+echo $response;
