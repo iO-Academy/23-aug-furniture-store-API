@@ -7,9 +7,9 @@ use JsonSerializable;
 class ProductEntity implements JsonSerializable
 {
     private int $id;
-    private float $price;
-    private int $stock;
-    private string $color;
+    protected float $price;
+    protected int $stock;
+    protected string $color;
 
     public function jsonSerialize(): array
     {
