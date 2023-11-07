@@ -22,7 +22,7 @@ try {
     }
     $response = json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $products));
 } catch (InvalidCategoryException $invalidCatEx) {
-    $response = json_encode(ResponseService::createResponse(InvalidCategoryException::INVALID_CAT, [], 400));
+    $response = json_encode(ResponseService::createResponse(InvalidCategoryException::INVALID_CAT_ID, [], 400));
 } catch (Exception $exception) {
     $response = json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, [], 500));
 }
