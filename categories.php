@@ -1,15 +1,22 @@
 <?php
-// used as test
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
 
 require('vendor/autoload.php');
 
-use Example\Classes\DbConnector;
-use Example\Classes\CategoryHydrator;
-use Example\Classes\CategoryEntity;
+use Furniture\Classes\DbConnector;
+use Furniture\Classes\CategoryHydrator;
+use Furniture\Classes\CategoryEntity;
+use Furniture\Services\ResponseService;
 
-$db = DbConnector::connectToDb();
+$successMessage = "Successfully retrieved categories";
 
-$categories = CategoryHydrator::fetchAllCategories($db);
-foreach ($categories as $category) {
-    var_dump($category->jsonSerialize()) . '<br>';
+try {
+    $db = DbConnector::connectToDb();
+    $categories = CategoryHydrator::fetchAllCategories($db);
+    echo json_encode(ResponseService::createResponse($successMessage, $categories));
+} catch (PDOException $exception) {
+    http_response_code(500);
+    echo json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, []));
+    exit();
 }
