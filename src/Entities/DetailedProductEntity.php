@@ -12,7 +12,15 @@ class DetailedProductEntity extends ProductEntity
 
     public function jsonSerialize(): array
     {
-        return ['categoryId' => $this->categoryId, 'width' => $this->width, 'height' => $this->height, 'depth' => $this->depth, 'related' => $this->related];
+        return [
+            'categoryId' => $this->categoryId,
+            'width' => $this->width,
+            'height' => $this->height,
+            'depth' => $this->depth,
+            'price' => $this->price,
+            'stock' => $this->stock,
+            'related' => $this->related,
+            'color' => $this->color
+        ];
     }
-
 }
