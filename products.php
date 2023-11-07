@@ -13,7 +13,7 @@ $catId = $_GET['cat'] ?? '';
 
 try {
     if (!is_numeric($catId)) {
-        throw new InvalidCategoryException('INVALID CATEGORY ID');
+        throw new InvalidCategoryException(InvalidCategoryException::INVALID_CAT_ID);
     }
     $db = DbConnector::getDbConnection();
     $products = ProductHydrator::fetchProductsByCategoryId($db, $catId);
@@ -22,7 +22,7 @@ try {
     }
     $response = json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $products));
 } catch (InvalidCategoryException $invalidCatEx) {
-    $response = json_encode(ResponseService::createResponse(InvalidCategoryException::INVALID_CAT_ID, [], 400));
+    $response = json_encode(ResponseService::createResponse($invalidCatEx->getMessage(), [], 400));
 } catch (Exception $exception) {
     $response = json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, [], 500));
 }

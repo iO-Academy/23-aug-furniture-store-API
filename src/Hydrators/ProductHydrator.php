@@ -3,6 +3,7 @@
 namespace Furniture\Hydrators;
 
 use Furniture\Entities\ProductEntity;
+use Furniture\Entities\DetailedProductEntity;
 use PDO;
 
 class ProductHydrator
@@ -13,5 +14,13 @@ class ProductHydrator
         $query->execute([$categoryId]);
         $query->setFetchMode(PDO::FETCH_CLASS, ProductEntity::class);
         return $query->fetchAll();
+    }
+
+    public static function fetchProductById(PDO $db, int $productId): DetailedProductEntity
+    {
+        $query = $db->prepare('SELECT `category_ID` as `categoryId`, `width`, `height`, `depth`, `price`, `stock`, `related`, `color` FROM `products` WHERE `id` = ?');
+        $query->execute([$productId]);
+        $query->setFetchMode(PDO::FETCH_CLASS, DetailedProductEntity::class);
+        return $query->fetch();
     }
 }
