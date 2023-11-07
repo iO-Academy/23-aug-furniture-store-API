@@ -5,14 +5,14 @@ header('Access-Control-Allow-Origin: *');
 require('vendor/autoload.php');
 
 use Furniture\Factories\DbConnector;
-use Furniture\Hydrators\Product\Hydrator;
+use Furniture\Hydrators\ProductHydrator;
 use Furniture\Services\ResponseService;
 
 const SUCCESS_MESSAGE = "Successfully retrieved products";
 
 try {
     $db = DbConnector::getDbConnection();
-    $products = ProductHydrator::fetchAllProducts($db);
+    $products = ProductHydrator::fetchProductsByCategoryId($db, 1);
     if (empty($products)) {
         throw new Exception('No products found in database');
     }
