@@ -12,16 +12,16 @@ $productId = $_GET['id'] ?? '';
 
 try {
     if (!is_numeric($productId)) {
-        throw new InvalidProductException('INVALID PRODUCT ID');
+        throw new InvalidProductException(InvalidProductException::INVALID_PROD_ID);
     }
     $db = DbConnector::getDbConnection();
     $product= ProductHydrator::fetchProductById($db, $productId);
     if (empty($product)) {
-        throw new Exception('No information returned');
+        throw new Exception('No product details found in database');
     }
     $response = json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $product));
 } catch (InvalidProductException $invalidProdEx) {
-    $response = json_encode(ResponseService::createResponse(InvalidProductException::INVALID_PROD_ID, [], 400));
+    $response = json_encode(ResponseService::createResponse($invalidProdEx->getMessage(), [], 400));
 } catch (Exception $exception) {
     $response = json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, [], 500));
 }
