@@ -14,4 +14,8 @@ class ProductHydrator
         $query->setFetchMode(PDO::FETCH_CLASS, ProductEntity::class);
         return $query->fetchAll();
     }
+
+    public static function fetchProductById(PDO $db, int $productId): ProductEntity
+    {
+    }
 }
