@@ -12,10 +12,10 @@ try {
     $db = DbConnector::getDbConnection();
     $categories = CategoryHydrator::fetchAllCategories($db);
     if (empty($categories)) {
-        throw new Exception('No categories found in database');
+        throw new Exception(ResponseService::UNEXPECTED_ERROR);
     }
     $response = json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $categories));
 } catch (Exception $exception) {
-    $response = json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, [], 500));
+    $response = json_encode(ResponseService::createResponse($exception->getMessage(), [], 500));
 }
 echo $response;
