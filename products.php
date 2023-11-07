@@ -1,6 +1,4 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: *');
 
 require('vendor/autoload.php');
 
@@ -11,18 +9,22 @@ use \Furniture\Exceptions\InvalidCategoryException;
 
 const SUCCESS_MESSAGE = "Successfully retrieved products";
 
+$catId = $_GET['cat'];
+
 try {
-    if (!is_numeric($_GET['cat'])) {
+    if (!is_numeric($catId)) {
         throw new InvalidCategoryException('INVALID CATEGORY ID');
     }
     $db = DbConnector::getDbConnection();
-    $products = ProductHydrator::fetchProductsByCategoryId($db, $_GET['cat']);
+    $products = ProductHydrator::fetchProductsByCategoryId($db, $catId);
     if (empty($products)) {
         throw new Exception('No products found in database');
     }
-    echo json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $products));
+    $response = json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $products));
 } catch (InvalidCategoryException $invalidCatEx) {
-    echo json_encode(ResponseService::createResponse(ResponseService::INVALID_CAT, [], 400));
+    $response = json_encode(ResponseService::createResponse(InvalidCategoryException::INVALID_CAT, [], 400));
 } catch (Exception $exception) {
-    echo json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, [], 500));
+    $response = json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, [], 500));
 }
+
+echo $response;
