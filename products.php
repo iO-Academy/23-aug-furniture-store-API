@@ -9,7 +9,7 @@ use \Furniture\Exceptions\InvalidCategoryException;
 
 const SUCCESS_MESSAGE = "Successfully retrieved products";
 
-$catId = $_GET['cat'];
+$catId = $_GET['cat'] ?? '';
 
 try {
     if (!is_numeric($catId)) {
