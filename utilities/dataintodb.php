@@ -8,7 +8,7 @@ $dsn = "mysql:host=$host;dbname=$db;";
 
 $pdo = new PDO($dsn, $user, $password);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$rawData = file_get_contents('docs/furniturerawdata');
+$rawData = file_get_contents('docs/furniturerawdata.json');
 
 $decodedData = json_decode($rawData);
 $categories =

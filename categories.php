@@ -18,6 +18,5 @@ try {
     }
     echo json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $categories));
 } catch (Exception $exception) {
-    http_response_code(500);
-    echo json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, []));
+    echo json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, [], 500));
 }
