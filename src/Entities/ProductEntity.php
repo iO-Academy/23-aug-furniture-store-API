@@ -3,6 +3,8 @@
 namespace Furniture\Entities;
 
 use JsonSerializable;
+use Furniture\Services\CurrencyConverterService;
+use Furniture\Exceptions\InvalidCurrencyException;
 
 class ProductEntity implements JsonSerializable
 {
@@ -17,16 +19,16 @@ class ProductEntity implements JsonSerializable
         return ['id' => $this->id, 'price' => $this->getPrice(), 'stock' => $this->stock, 'color' => $this->color];
     }
 
-    public function setCurrency(string $currency = 'GBP'):void
+    public function setCurrency(string $currency = 'GBP'): void
     {
-        if (!in_array($currency, $validCurrency)) {
+        if (!in_array($currency, CurrencyConverterService::VALID_CURRENCIES)) {
             throw new InvalidCurrencyException(InvalidUnitException::INVALID_UNIT);
         }
-$this->currency= $currency;
+        $this->currency = $currency;
     }
+
     public function getPrice()
     {
         return CurrencyConverterService::convertCurrencyFromGBP($this->currency, $this->price);
     }
-
 }
