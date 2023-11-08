@@ -14,7 +14,7 @@ class ProductEntity implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        return ['id' => $this->id, 'price' => $this->getPrice(), 'stock' => $this->stock, 'color' => $this->color, 'currency' => $this->currency];
+        return ['id' => $this->id, 'price' => $this->getPrice(), 'stock' => $this->stock, 'color' => $this->color];
     }
 
     public function setCurrency(string $currency = 'GBP'):void
