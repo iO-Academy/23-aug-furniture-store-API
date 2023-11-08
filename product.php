@@ -5,10 +5,12 @@ use Furniture\Factories\DbConnector;
 use Furniture\Hydrators\ProductHydrator;
 use Furniture\Services\ResponseService;
 use \Furniture\Exceptions\InvalidProductException;
+use \Furniture\Entities\DetailedProductEntity;
 
 const SUCCESS_MESSAGE = "Successfully retrieved product";
 
 $productId = $_GET['id'] ?? '';
+$unit = $_GET['unit'] ?? '';
 
 try {
     if (!is_numeric($productId)) {
@@ -19,6 +21,7 @@ try {
     if (empty($product)) {
         throw new Exception('No product details found in database');
     }
+    $product->setMeasurementUnit($unit);
     $response = json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $product));
 } catch (InvalidProductException $invalidProdEx) {
     $response = json_encode(ResponseService::createResponse($invalidProdEx->getMessage(), [], 400));
