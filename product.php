@@ -12,12 +12,20 @@ const SUCCESS_MESSAGE = "Successfully retrieved product";
 
 $productId = $_GET['id'] ?? '';
 $unit = $_GET['unit'] ?? 'mm';
+$inStockOnly = $_GET['instockonly'] ?? false;
 
 try {
     if (!is_numeric($productId)) {
         throw new InvalidProductException(InvalidProductException::INVALID_PROD_ID);
     }
+
     $db = DbConnector::getDbConnection();
+    if ($inStockOnly) {
+        ProductHydrator::fetchProductsByCategoryIdinStock($db, $productId);
+    } else {
+        $product = ProductHydrator::fetchProductById($db, $productId);
+    }
+
     $product = ProductHydrator::fetchProductById($db, $productId);
     if (empty($product)) {
         throw new Exception('No product details found in database');
