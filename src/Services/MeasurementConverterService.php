@@ -1,5 +1,6 @@
 <?php
 
+namespace Furniture\Services;
 class MeasurementConverterService
 {
     const VALID_UNITS = ['mm', 'cm', 'in', 'ft'];
@@ -24,7 +25,7 @@ class MeasurementConverterService
             default:
                 $unitConversion = self::MM;
         }
-       return $value / $unitConversion;
+       return round($value / $unitConversion,2);
     }
 }
 
