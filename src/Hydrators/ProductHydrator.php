@@ -26,7 +26,7 @@ class ProductHydrator
 
     public static function fetchProductsByCategoryIdInStock(PDO $db, int $categoryId): array
     {
-        $query = $db->prepare('SELECT `id`, `price`, `stock`, `color` FROM `products` WHERE `category_ID` = ?' and `stock` > 0);
+        $query = $db->prepare('SELECT `id`, `price`, `stock`, `color` FROM `products` WHERE `category_ID` = ? and `stock` > 0');
         $query->execute([$categoryId]);
         $query->setFetchMode(PDO::FETCH_CLASS, ProductEntity::class);
         return $query->fetchAll();
