@@ -14,6 +14,19 @@ class ProductEntity implements JsonSerializable
 
     public function jsonSerialize(): array
     {
-        return ['id' => $this->id, 'price' => $this->price, 'stock' => $this->stock, 'color' => $this->color, 'currency' => $this->currency];
+        return ['id' => $this->id, 'price' => $this->getPrice(), 'stock' => $this->stock, 'color' => $this->color, 'currency' => $this->currency];
     }
+
+    public function setCurrency(string $currency = 'GBP'):void
+    {
+        if (!in_array($currency, $validCurrency)) {
+            throw new InvalidCurrencyException(InvalidUnitException::INVALID_UNIT);
+        }
+$this->currency= $currency;
+    }
+    public function getPrice()
+    {
+        return CurrencyConverterService::convertCurrencyFromGBP($this->currency, $this->price);
+    }
+
 }
