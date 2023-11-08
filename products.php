@@ -10,8 +10,7 @@ use \Furniture\Exceptions\InvalidCategoryException;
 const SUCCESS_MESSAGE = "Successfully retrieved products";
 
 $catId = $_GET['cat'] ?? '';
-$inStockOnly = $_GET['instockonly'] ?? false;
-
+$inStockOnly = (bool)$_GET['instockonly'] ?? false;
 try {
     if (!is_numeric($catId)) {
         throw new InvalidCategoryException(InvalidCategoryException::INVALID_CAT_ID);

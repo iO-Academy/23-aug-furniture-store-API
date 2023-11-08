@@ -13,7 +13,6 @@ const SUCCESS_MESSAGE = "Successfully retrieved product";
 $productId = $_GET['id'] ?? '';
 $unit = $_GET['unit'] ?? 'mm';
 
-
 try {
     if (!is_numeric($productId)) {
         throw new InvalidProductException(InvalidProductException::INVALID_PROD_ID);
