@@ -2,6 +2,8 @@
 
 namespace Furniture\Entities;
 
+use \Furniture\Services\MeasurementConverterService;
+
 class DetailedProductEntity extends ProductEntity
 {
     private int $categoryId;
@@ -15,9 +17,9 @@ class DetailedProductEntity extends ProductEntity
     {
         return [
             'categoryId' => $this->categoryId,
-            'width' => $this->width,
-            'height' => $this->height,
-            'depth' => $this->depth,
+            'width' => MeasurementConverterService::convertMeasurement($this->measurementUnit,$this->width),
+            'height' => MeasurementConverterService::convertMeasurement($this->measurementUnit,$this->height),
+            'depth' => MeasurementConverterService::convertMeasurement($this->measurementUnit,$this->depth),
             'price' => $this->price,
             'stock' => $this->stock,
             'related' => $this->related,

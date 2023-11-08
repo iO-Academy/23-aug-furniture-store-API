@@ -7,13 +7,13 @@ use Furniture\Services\ResponseService;
 use \Furniture\Exceptions\InvalidProductException;
 use \Furniture\Entities\DetailedProductEntity;
 use \Furniture\Exceptions\InvalidUnitException;
+use \Furniture\Services\MeasurementConverterService;
 
 const SUCCESS_MESSAGE = "Successfully retrieved product";
 
 $productId = $_GET['id'] ?? '';
 $unit = $_GET['unit'] ?? 'mm';
-$validUnits = ['mm','cm','in','ft'];
-//$validUnits = MeasurementConverterService::Valid_UNITS;
+$validUnits = MeasurementConverterService::VALID_UNITS;
 
 try {
     if (!is_numeric($productId)) {
