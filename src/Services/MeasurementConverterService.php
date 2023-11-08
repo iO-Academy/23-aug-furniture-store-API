@@ -11,7 +11,6 @@ class MeasurementConverterService
 
     public static function convertMeasurement(string $unit, int $value):float
     {
-
         switch ($unit){
             case 'cm':
                 $unitConversion = self::CM;
@@ -25,7 +24,6 @@ class MeasurementConverterService
             default:
                 $unitConversion = self::MM;
         }
-       return round($value / $unitConversion,2);
+       return round($value / $unitConversion, 2);
     }
 }
-

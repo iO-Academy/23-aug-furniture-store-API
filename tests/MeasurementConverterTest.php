@@ -4,7 +4,6 @@ use PHPUnit\Framework\TestCase;
 use Furniture\Services\MeasurementConverterService;
 
 class MeasurementConverterTest extends TestCase
-
 {
     public function testConvertMeasurement_Cm_Success()
     {
@@ -32,6 +31,7 @@ class MeasurementConverterTest extends TestCase
         $result = MeasurementConverterService::convertMeasurement($unit, $value);
         $this->assertSame($expected, $result);
     }
+
     public function testConvertMeasurement_Ft_Success()
     {
         $unit = 'ft';
@@ -40,6 +40,7 @@ class MeasurementConverterTest extends TestCase
         $result = MeasurementConverterService::convertMeasurement($unit, $value);
         $this->assertSame($expected, $result);
     }
+
     public function testConvertMeasurement_param1Malformed()
     {
         $unit = [];
@@ -47,6 +48,7 @@ class MeasurementConverterTest extends TestCase
         $this->expectException(TypeError::class);
         MeasurementConverterService::convertMeasurement($unit, $value);
     }
+
     public function testConvertMeasurement_param2Malformed()
     {
         $unit = 'ft';
