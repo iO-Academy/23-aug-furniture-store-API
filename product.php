@@ -12,6 +12,8 @@ const SUCCESS_MESSAGE = "Successfully retrieved product";
 
 $productId = $_GET['id'] ?? '';
 $unit = $_GET['unit'] ?? 'mm';
+$currency = $_GET['currency'] ?? 'gbp';
+
 
 try {
     if (!is_numeric($productId)) {
@@ -23,6 +25,7 @@ try {
         throw new Exception('No product details found in database');
     }
     $product->setMeasurementUnit($unit);
+    $currency->getConvertCurrency($currency);
     $response = json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $product));
 } catch (InvalidProductException $invalidProdEx) {
     $response = json_encode(ResponseService::createResponse($invalidProdEx->getMessage(), [], 400));
