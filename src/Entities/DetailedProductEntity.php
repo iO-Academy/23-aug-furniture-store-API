@@ -17,9 +17,9 @@ class DetailedProductEntity extends ProductEntity
     {
         return [
             'categoryId' => $this->categoryId,
-            'width' => MeasurementConverterService::convertMeasurement($this->measurementUnit,$this->width),
-            'height' => MeasurementConverterService::convertMeasurement($this->measurementUnit,$this->height),
-            'depth' => MeasurementConverterService::convertMeasurement($this->measurementUnit,$this->depth),
+            'width' => MeasurementConverterService::convertMeasurement($this->measurementUnit, $this->width),
+            'height' => MeasurementConverterService::convertMeasurement($this->measurementUnit, $this->height),
+            'depth' => MeasurementConverterService::convertMeasurement($this->measurementUnit, $this->depth),
             'price' => $this->price,
             'stock' => $this->stock,
             'related' => $this->related,

@@ -23,7 +23,7 @@ try {
         throw new InvalidUnitException(InvalidUnitException::INVALID_UNIT);
     }
     $db = DbConnector::getDbConnection();
-    $product= ProductHydrator::fetchProductById($db, $productId);
+    $product = ProductHydrator::fetchProductById($db, $productId);
     if (empty($product)) {
         throw new Exception('No product details found in database');
     }
