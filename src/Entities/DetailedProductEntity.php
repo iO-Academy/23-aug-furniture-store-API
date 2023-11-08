@@ -3,6 +3,7 @@
 namespace Furniture\Entities;
 
 use \Furniture\Services\MeasurementConverterService;
+use \Furniture\Exceptions\InvalidUnitException;
 
 class DetailedProductEntity extends ProductEntity
 {
@@ -17,9 +18,9 @@ class DetailedProductEntity extends ProductEntity
     {
         return [
             'categoryId' => $this->categoryId,
-            'width' => MeasurementConverterService::convertMeasurement($this->measurementUnit, $this->width),
-            'height' => MeasurementConverterService::convertMeasurement($this->measurementUnit, $this->height),
-            'depth' => MeasurementConverterService::convertMeasurement($this->measurementUnit, $this->depth),
+            'width' => $this->getWidth(),
+            'height' => $this->getHeight(),
+            'depth' => $this->getDepth(),
             'price' => $this->price,
             'stock' => $this->stock,
             'related' => $this->related,
@@ -27,23 +28,27 @@ class DetailedProductEntity extends ProductEntity
         ];
     }
 
-    public function setMeasurementUnit(string $unit = 'mm'): void
+    public function setMeasurementUnit(string $unit): void
     {
+        $validUnits = MeasurementConverterService::VALID_UNITS;
+        if (!in_array($unit, $validUnits)) {
+            throw new InvalidUnitException(InvalidUnitException::INVALID_UNIT);
+        }
         $this->measurementUnit = $unit;
     }
 
     public function getWidth()
     {
-        return $this->width;
+        return MeasurementConverterService::convertMeasurementFromMm($this->measurementUnit, $this->width);
     }
 
     public function getHeight()
     {
-        return $this->height;
+        return MeasurementConverterService::convertMeasurementFromMm($this->measurementUnit, $this->height);
     }
 
     public function getDepth()
     {
-        return $this->depth;
+        return MeasurementConverterService::convertMeasurementFromMm($this->measurementUnit, $this->depth);
     }
 }

@@ -9,7 +9,7 @@ class MeasurementConverterService
     const IN = 25.4;
     const FT = 304.8;
 
-    public static function convertMeasurement(string $unit, int $value):float
+    public static function convertMeasurementFromMm(string $unit, int $value):float
     {
         switch ($unit){
             case 'cm':

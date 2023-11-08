@@ -5,7 +5,6 @@ use Furniture\Factories\DbConnector;
 use Furniture\Hydrators\ProductHydrator;
 use Furniture\Services\ResponseService;
 use \Furniture\Exceptions\InvalidProductException;
-use \Furniture\Entities\DetailedProductEntity;
 use \Furniture\Exceptions\InvalidUnitException;
 use \Furniture\Services\MeasurementConverterService;
 
@@ -13,14 +12,10 @@ const SUCCESS_MESSAGE = "Successfully retrieved product";
 
 $productId = $_GET['id'] ?? '';
 $unit = $_GET['unit'] ?? 'mm';
-$validUnits = MeasurementConverterService::VALID_UNITS;
 
 try {
     if (!is_numeric($productId)) {
         throw new InvalidProductException(InvalidProductException::INVALID_PROD_ID);
-    }
-    if (!in_array($unit, $validUnits)) {
-        throw new InvalidUnitException(InvalidUnitException::INVALID_UNIT);
     }
     $db = DbConnector::getDbConnection();
     $product = ProductHydrator::fetchProductById($db, $productId);

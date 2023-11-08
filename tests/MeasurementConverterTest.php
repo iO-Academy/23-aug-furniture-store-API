@@ -10,7 +10,7 @@ class MeasurementConverterTest extends TestCase
         $unit = 'cm';
         $value = 15;
         $expected = 1.5;
-        $result = MeasurementConverterService::convertMeasurement($unit, $value);
+        $result = MeasurementConverterService::convertMeasurementFromMm($unit, $value);
         $this->assertSame($expected, $result);
     }
 
@@ -19,7 +19,7 @@ class MeasurementConverterTest extends TestCase
         $unit = 'mm';
         $value = 15;
         $expected = 15.0;
-        $result = MeasurementConverterService::convertMeasurement($unit, $value);
+        $result = MeasurementConverterService::convertMeasurementFromMm($unit, $value);
         $this->assertSame($expected, $result);
     }
 
@@ -28,7 +28,7 @@ class MeasurementConverterTest extends TestCase
         $unit = 'in';
         $value = 15;
         $expected = 0.59;
-        $result = MeasurementConverterService::convertMeasurement($unit, $value);
+        $result = MeasurementConverterService::convertMeasurementFromMm($unit, $value);
         $this->assertSame($expected, $result);
     }
 
@@ -37,7 +37,7 @@ class MeasurementConverterTest extends TestCase
         $unit = 'ft';
         $value = 15;
         $expected = 0.05;
-        $result = MeasurementConverterService::convertMeasurement($unit, $value);
+        $result = MeasurementConverterService::convertMeasurementFromMm($unit, $value);
         $this->assertSame($expected, $result);
     }
 
@@ -46,7 +46,7 @@ class MeasurementConverterTest extends TestCase
         $unit = [];
         $value = 15;
         $this->expectException(TypeError::class);
-        MeasurementConverterService::convertMeasurement($unit, $value);
+        MeasurementConverterService::convertMeasurementFromMm($unit, $value);
     }
 
     public function testConvertMeasurement_param2Malformed()
@@ -54,6 +54,6 @@ class MeasurementConverterTest extends TestCase
         $unit = 'ft';
         $value = [];
         $this->expectException(TypeError::class);
-        MeasurementConverterService::convertMeasurement($unit, $value);
+        MeasurementConverterService::convertMeasurementFromMm($unit, $value);
     }
 }
