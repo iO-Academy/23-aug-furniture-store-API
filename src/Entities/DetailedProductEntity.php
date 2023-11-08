@@ -27,9 +27,21 @@ class DetailedProductEntity extends ProductEntity
 
     public function setMeasurementUnit(string $unit = 'mm'): void
     {
+        $this->measurementUnit = $unit;
     }
 
     public function getWidth()
     {
+        return $this->width;
+    }
+
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    public function getDepth()
+    {
+        return $this->depth;
     }
 }
