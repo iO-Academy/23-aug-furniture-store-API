@@ -10,13 +10,17 @@ use \Furniture\Exceptions\InvalidCategoryException;
 const SUCCESS_MESSAGE = "Successfully retrieved products";
 
 $catId = $_GET['cat'] ?? '';
-
+$inStockOnly = (bool)$_GET['instockonly'] ?? false;
 try {
     if (!is_numeric($catId)) {
         throw new InvalidCategoryException(InvalidCategoryException::INVALID_CAT_ID);
     }
     $db = DbConnector::getDbConnection();
-    $products = ProductHydrator::fetchProductsByCategoryId($db, $catId);
+    if ($inStockOnly) {
+        $products = ProductHydrator::fetchProductsByCategoryIdInStock($db, $catId);
+    } else {
+        $products = ProductHydrator::fetchProductsByCategoryId($db, $catId);
+    }
     if (empty($products)) {
         throw new Exception('No products found in database');
     }
