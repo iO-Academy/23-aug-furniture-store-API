@@ -12,7 +12,7 @@ class CurrencyConverterService
 
     public static function convertCurrencyFromGBP(string $currency, float $price): float
     {
-        switch ($currency){
+        switch ($currency) {
             case 'USD':
                 $currencyConversion = self::USD;
                 break;

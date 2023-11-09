@@ -1,4 +1,6 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
 require('vendor/autoload.php');
 
 use Furniture\Factories\DbConnector;
@@ -12,6 +14,7 @@ const SUCCESS_MESSAGE = "Successfully retrieved product";
 
 $productId = $_GET['id'] ?? '';
 $unit = $_GET['unit'] ?? 'mm';
+$currency = $_GET['currency'] ?? 'GBP';
 
 try {
     if (!is_numeric($productId)) {
@@ -23,6 +26,7 @@ try {
         throw new Exception('No product details found in database');
     }
     $product->setMeasurementUnit($unit);
+    $product->setCurrency($currency);
     $response = json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $product));
 } catch (InvalidProductException $invalidProdEx) {
     $response = json_encode(ResponseService::createResponse($invalidProdEx->getMessage(), [], 400));
