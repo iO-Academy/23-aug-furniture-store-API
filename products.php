@@ -6,11 +6,16 @@ use Furniture\Factories\DbConnector;
 use Furniture\Hydrators\ProductHydrator;
 use Furniture\Services\ResponseService;
 use \Furniture\Exceptions\InvalidCategoryException;
+use Furniture\Services\HeaderService;
+
+HeaderService::setHeader();
 
 const SUCCESS_MESSAGE = "Successfully retrieved products";
 
 $catId = $_GET['cat'] ?? '';
 $inStockOnly = (bool)$_GET['instockonly'] ?? false;
+$currency = $_GET['currency'] ?? 'GBP';
+
 try {
     if (!is_numeric($catId)) {
         throw new InvalidCategoryException(InvalidCategoryException::INVALID_CAT_ID);
@@ -20,6 +25,9 @@ try {
         $products = ProductHydrator::fetchProductsByCategoryIdInStock($db, $catId);
     } else {
         $products = ProductHydrator::fetchProductsByCategoryId($db, $catId);
+    }
+    foreach ($products as $product) {
+        $product->setCurrency($currency);
     }
     if (empty($products)) {
         throw new Exception('No products found in database');

@@ -1,17 +1,22 @@
 <?php
+
 require('vendor/autoload.php');
 
 use Furniture\Factories\DbConnector;
 use Furniture\Hydrators\ProductHydrator;
 use Furniture\Services\ResponseService;
-use \Furniture\Exceptions\InvalidProductException;
-use \Furniture\Exceptions\InvalidUnitException;
-use \Furniture\Services\MeasurementConverterService;
+use Furniture\Exceptions\InvalidProductException;
+use Furniture\Exceptions\InvalidUnitException;
+use Furniture\Services\MeasurementConverterService;
+use Furniture\Services\HeaderService;
+
+HeaderService::setHeader();
 
 const SUCCESS_MESSAGE = "Successfully retrieved product";
 
 $productId = $_GET['id'] ?? '';
 $unit = $_GET['unit'] ?? 'mm';
+$currency = $_GET['currency'] ?? 'GBP';
 
 try {
     if (!is_numeric($productId)) {
@@ -23,6 +28,7 @@ try {
         throw new Exception('No product details found in database');
     }
     $product->setMeasurementUnit($unit);
+    $product->setCurrency($currency);
     $response = json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $product));
 } catch (InvalidProductException $invalidProdEx) {
     $response = json_encode(ResponseService::createResponse($invalidProdEx->getMessage(), [], 400));
