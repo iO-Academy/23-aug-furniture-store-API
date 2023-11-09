@@ -12,7 +12,7 @@ class DetailedProductEntity extends ProductEntity
     private int $height;
     private int $depth;
     private int $related;
-    private string $measurementUnit;
+    private string $measurementUnit = 'mm';
 
     public function jsonSerialize(): array
     {
@@ -21,7 +21,7 @@ class DetailedProductEntity extends ProductEntity
             'width' => $this->getWidth(),
             'height' => $this->getHeight(),
             'depth' => $this->getDepth(),
-            'price' => $this->price,
+            'price' => $this->getPrice(),
             'stock' => $this->stock,
             'related' => $this->related,
             'color' => $this->color

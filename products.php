@@ -1,5 +1,8 @@
 <?php
 
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+
 require('vendor/autoload.php');
 
 use Furniture\Factories\DbConnector;
@@ -11,6 +14,8 @@ const SUCCESS_MESSAGE = "Successfully retrieved products";
 
 $catId = $_GET['cat'] ?? '';
 $inStockOnly = (bool)$_GET['instockonly'] ?? false;
+$currency = $_GET['currency'] ?? 'GBP';
+
 try {
     if (!is_numeric($catId)) {
         throw new InvalidCategoryException(InvalidCategoryException::INVALID_CAT_ID);
@@ -21,6 +26,12 @@ try {
     } else {
         $products = ProductHydrator::fetchProductsByCategoryId($db, $catId);
     }
+
+    // $products->setCurrency($currency);
+    foreach ($products as $product) {
+        $product->setCurrency($currency);
+    }
+
     if (empty($products)) {
         throw new Exception('No products found in database');
     }
