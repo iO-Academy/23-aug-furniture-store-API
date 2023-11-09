@@ -5,7 +5,7 @@ namespace Furniture\Services;
 class CurrencyConverterService
 {
     const VALID_CURRENCIES = ['GBP', 'USD', 'EUR', 'YEN'];
-    const GBP = 1;
+    const GBP = 1.0;
     const USD = 1.19;
     const EUR = 1.16;
     const YEN = 162.16;
