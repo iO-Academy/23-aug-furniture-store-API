@@ -1,12 +1,14 @@
 <?php
 
-header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: *');
+
 require('vendor/autoload.php');
 
 use Furniture\Factories\DbConnector;
 use Furniture\Hydrators\CategoryHydrator;
 use Furniture\Services\ResponseService;
+use Furniture\Services\HeaderService;
+
+HeaderService::setHeader();
 
 const SUCCESS_MESSAGE = "Successfully retrieved categories";
 

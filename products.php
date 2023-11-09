@@ -1,14 +1,14 @@
 <?php
 
-header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Origin: *');
-
 require('vendor/autoload.php');
 
 use Furniture\Factories\DbConnector;
 use Furniture\Hydrators\ProductHydrator;
 use Furniture\Services\ResponseService;
 use \Furniture\Exceptions\InvalidCategoryException;
+use Furniture\Services\HeaderService;
+
+HeaderService::setHeader();
 
 const SUCCESS_MESSAGE = "Successfully retrieved products";
 
@@ -26,12 +26,9 @@ try {
     } else {
         $products = ProductHydrator::fetchProductsByCategoryId($db, $catId);
     }
-
-    // $products->setCurrency($currency);
     foreach ($products as $product) {
         $product->setCurrency($currency);
     }
-
     if (empty($products)) {
         throw new Exception('No products found in database');
     }
