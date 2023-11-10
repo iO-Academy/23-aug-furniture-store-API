@@ -5,8 +5,9 @@ require('vendor/autoload.php');
 use Furniture\Factories\DbConnector;
 use Furniture\Hydrators\ProductHydrator;
 use Furniture\Services\ResponseService;
-use \Furniture\Exceptions\InvalidCategoryException;
+use Furniture\Exceptions\InvalidCategoryException;
 use Furniture\Services\HeaderService;
+use Furniture\Exceptions\InvalidCurrencyException;
 
 HeaderService::setHeader();
 
@@ -35,6 +36,8 @@ try {
     $response = json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $products));
 } catch (InvalidCategoryException $invalidCatEx) {
     $response = json_encode(ResponseService::createResponse($invalidCatEx->getMessage(), [], 400));
+} catch (InvalidCurrencyException $invalidCurrEx) {
+    $response = json_encode(ResponseService::createResponse($invalidCurrEx->getMessage(), [], 400));
 } catch (Exception $exception) {
     $response = json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, [], 500));
 }

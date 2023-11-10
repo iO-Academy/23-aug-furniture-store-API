@@ -9,6 +9,7 @@ use Furniture\Exceptions\InvalidProductException;
 use Furniture\Exceptions\InvalidUnitException;
 use Furniture\Services\MeasurementConverterService;
 use Furniture\Services\HeaderService;
+use Furniture\Exceptions\InvalidCurrencyException;
 
 HeaderService::setHeader();
 
@@ -34,6 +35,8 @@ try {
     $response = json_encode(ResponseService::createResponse($invalidProdEx->getMessage(), [], 400));
 } catch (InvalidUnitException $invalidUnitEx) {
     $response = json_encode(ResponseService::createResponse($invalidUnitEx->getMessage(), [], 400));
+} catch (InvalidCurrencyException $invalidCurrEx) {
+    $response = json_encode(ResponseService::createResponse($invalidCurrEx->getMessage(), [], 400));
 } catch (Exception $exception) {
     $response = json_encode(ResponseService::createResponse(ResponseService::UNEXPECTED_ERROR, [], 500));
 }
