@@ -13,7 +13,8 @@ HeaderService::setHeader();
 const SUCCESS_MESSAGE = "Successfully retrieved products";
 
 $catId = $_GET['cat'] ?? '';
-$inStockOnly = (bool)$_GET['instockonly'] ?? false;
+$inStockOnly = $_GET['instockonly'] ?? false;
+$inStockOnly = (bool)$inStockOnly;
 $currency = $_GET['currency'] ?? 'GBP';
 
 try {
