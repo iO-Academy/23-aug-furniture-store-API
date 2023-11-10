@@ -8,6 +8,7 @@ use Furniture\Services\ResponseService;
 use Furniture\Exceptions\InvalidCategoryException;
 use Furniture\Services\HeaderService;
 use Furniture\Exceptions\InvalidCurrencyException;
+use Furniture\Hydrators\CategoryHydrator;
 
 HeaderService::setHeader();
 
@@ -23,6 +24,15 @@ try {
         throw new InvalidCategoryException(InvalidCategoryException::INVALID_CAT_ID);
     }
     $db = DbConnector::getDbConnection();
+
+    $categoryArray = CategoryHydrator::fetchCategoryIds($db);
+    print_r($categoryArray);
+    foreach ($categoryArray as $category) {
+        $categoryIds[] = $category['id'];
+    }
+    if (!in_array($catId, $categoryIds)){
+        throw new InvalidCategoryException(InvalidCategoryException::INVALID_CAT_ID);
+    }
     if ($inStockOnly) {
         $products = ProductHydrator::fetchProductsByCategoryIdInStock($db, $catId);
     } else {

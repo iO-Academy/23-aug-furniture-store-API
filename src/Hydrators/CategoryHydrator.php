@@ -14,4 +14,13 @@ class CategoryHydrator
         $query->setFetchMode(PDO::FETCH_CLASS, CategoryEntity::class);
         return $query->fetchAll();
     }
+public static function fetchCategoryIds(PDO $db): array
+{
+    $query = $db->prepare('SELECT `id` FROM `categories`;');
+    $query->execute();
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    return $query->fetchAll();
 }
+}
+
+
