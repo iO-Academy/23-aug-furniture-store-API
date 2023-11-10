@@ -28,11 +28,11 @@ try {
     } else {
         $products = ProductHydrator::fetchProductsByCategoryId($db, $catId);
     }
+    if (empty($products)) {
+        throw new InvalidCategoryException(InvalidCategoryException::INVALID_CAT_ID);
+    }
     foreach ($products as $product) {
         $product->setCurrency($currency);
-    }
-    if (empty($products)) {
-        throw new Exception('No products found in database');
     }
     $response = json_encode(ResponseService::createResponse(SUCCESS_MESSAGE, $products));
 } catch (InvalidCategoryException $invalidCatEx) {
